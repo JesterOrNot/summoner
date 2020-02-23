@@ -2,5 +2,9 @@ FROM gitpod/workspace-full:latest
 USER gitpod
 RUN brew install haskell-stack
 RUN stack install brittany hlint
-RUN stack install haskell-ide-engine
+RUN git clone https://github.com/haskell/haskell-ide-engine --recurse-submodules \
+    && cd haskell-ide-engine  \
+    && stack install haskell-ide-engine \
+    && cd .. \
+    && rm -rf haskell-ide-engine
 ENV PATH=/home/gitpod/.local/bin:$PATH
